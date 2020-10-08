@@ -1,0 +1,30 @@
+type Query {
+    twitt_categories: [TwittCategory] @resolver(class: "Extmage\\MinitwittGraphQl\\Model\\Resolver\\TwittCategories") @doc(description: "Twitt categories.") @cache(cacheable: false)
+    twitt_category (id: Int): TwittCategory @resolver(class: "Extmage\\MinitwittGraphQl\\Model\\Resolver\\TwittCategory") @doc(description: "Twitt category.")  @cache(cacheable: false)
+}
+
+type Mutation {
+	createTwitt(input: createTwittInput): createTwittOutput @resolver(class: "Extmage\\MinitwittGraphQl\\Model\\Resolver\\TwittCreate") @doc(description:"Create twitt")
+}
+
+type TwittCategory {
+    id: Int
+    category: String
+    twitts: [Twitt]
+}
+
+type Twitt {
+    author: String
+    created_at: String
+    content: String
+}
+
+input createTwittInput {
+    author: String!
+    content: String!
+    category_id: Int!
+}
+
+type createTwittOutput {
+    twitt: Twitt!
+}
